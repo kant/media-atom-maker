@@ -36,14 +36,19 @@ class VideoDisplay extends React.Component {
     this.props.videoActions.updateVideo(video);
   };
 
-  composerKeywordsToYouTube = keywordTag => {
-    if (this.props.video.tags.every(youTubeTag => {
-      return youTubeTag !== keywordTag.webTitle
-    })) {
-      const newTags = this.props.video.tags.concat([keywordTag.webTitle]);
-      const newVideo = Object.assign({}, this.props.video, { tags: newTags });
-      this.updateVideo(newVideo);
-    }
+  composerKeywordsToYouTube = () => {
+    const keywordsToCopy = this.props.video.keywords.reduce((tags, keywordTag) => {
+
+      if (this.props.video.tags.every(youTubeTag => {
+        return youTubeTag !== keywordTag;
+      })) {
+        return tags.concat([keywordTag]);
+      }
+      return tags;
+    }, []);
+
+    const newVideo = Object.assign({}, this.props.video, { tags: keywordsToCopy });
+    this.updateVideo(newVideo);
   }
 
   selectVideo = () => {
@@ -144,7 +149,6 @@ class VideoDisplay extends React.Component {
             data-tip="Edit Assets"
           >
             <Icon className="icon__edit" icon="edit" />
-            <ReactTooltip place="bottom" />
           </Link>
         </div>
         <VideoPreview
@@ -154,6 +158,7 @@ class VideoDisplay extends React.Component {
           config={this.props.config}
           videoEditOpen={this.props.videoEditOpen}
         />
+        <ReactTooltip place="bottom" />
       </div>
     );
   };
