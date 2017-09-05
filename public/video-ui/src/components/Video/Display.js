@@ -147,22 +147,34 @@ class VideoDisplay extends React.Component {
   renderPreviewAndImages() {
     return (
       <div className="video__detailbox">
-        <div className="video__detailbox__header__container">
-          <header className="video__detailbox__header">Video Preview</header>
-          <Link
-            className={'button ' + (this.props.videoEditOpen ? 'disabled' : '')}
-            to={`/videos/${this.props.video.id}/upload`}
-            onClick={e => this.handleAssetClick(e)}
-            data-tip="Edit Assets"
-          >
-            <Icon className="icon__edit" icon="edit" />
-            <ReactTooltip place="bottom" />
-          </Link>
-        </div>
-        <div className="video-preview">
-          {this.renderPreview()}
-          {this.renderImages()}
-        </div>
+        <section>
+          <div className="video__detailbox__header__container">
+            <header className="video__detailbox__header">Video Preview</header>
+            <Link
+              className={'button ' + (this.props.videoEditOpen ? 'disabled' : '')}
+              to={`/videos/${this.props.video.id}/upload`}
+              onClick={e => this.handleAssetClick(e)}
+              data-tip="Edit Assets"
+            >
+              <Icon className="icon__edit" icon="edit" />
+              <ReactTooltip place="bottom" />
+            </Link>
+          </div>
+          <div className="video-preview">
+            {this.renderPreview()}
+          </div>
+        </section>
+
+        <section>
+          <div className="video__detailbox__header__container">
+            <header className="video__detailbox__header">&nbsp;</header>
+            {this.renderEditButton()}
+          </div>
+          <h1>yo</h1>
+          <div className="video-preview">
+            {this.renderImages()}
+          </div>
+        </section>
       </div>
     );
   }
